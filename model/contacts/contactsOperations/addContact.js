@@ -1,10 +1,9 @@
 const getAll = require('./getAll');
-const updateContacts = require('./updateContacts');
-const { v4: uuidv4 } = require('uuid');
+const updateContacts = require('./updateContacts')
 
 const addContact = async(data) => {
   const contacts = await getAll();
-  const newId = uuidv4();
+  const newId = contacts.length + 1;
   const newContact = { id: newId, ...data };
   contacts.push(newContact);
 

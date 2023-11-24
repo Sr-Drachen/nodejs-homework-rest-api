@@ -10,4 +10,8 @@ const listContacts = async () => {
 }
 
 module.exports = listContacts;
+// const contacts = require("./contacts.json");
 
+// const getAll = async () => contacts;
+
+// module.exports = getAll;

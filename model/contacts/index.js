@@ -55,12 +55,24 @@ const updateContact = async (contactId, body) => {
   return contacts[idx];
 }
 
+const updateStatusContactById = async (contactId, body) => {
+  const contacts = await listContacts();
+  const idx = contacts.findIndex(item => item.id === contactId);
+  if (idx === -1) {
+    return null;
+  }
+  contacts[idx] = { ...contacts[idx], ...body };
+  await updateContacts(contacts);
+  return contacts[idx];
+}
+
 const contactsOperations = {
   listContacts,
   getContactById,
   removeContact,
   addContact,
-  updateContact
+  updateContact,
+  updateStatusContactById
 };
 
 module.exports = contactsOperations;
