@@ -1,5 +1,5 @@
-const contactsSchema = require('../routes/api/contacts')
+const { Contact } = require('./contacts')
 
 module.exports = {
-  contactsSchema
+  Contact
 }
