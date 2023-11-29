@@ -1,15 +1,20 @@
+const Joi = require('joi');
 const { User } = require('../../schemas')
 const { BadRequest, NotFound } = require('http-errors')
+
+const schema = Joi.object({
+  subscription: Joi.string().valid('starter', 'pro', 'business').required()
+});
 
 const updateSubscription = async(req, res) => {
   const { _id } = req.user
   const { subscription } = req.body
-  if (!subscription) {
-    throw new BadRequest('Missing field subscription')
+
+  const { error } = schema.validate({ subscription });
+  if (error) {
+    throw new BadRequest(error.details[0].message);
   }
-  if (subscription !== 'starter' && subscription !== 'pro' && subscription !== 'business') {
-    throw new BadRequest('Wrong field subscription')
-  }
+
   const result = await User.findByIdAndUpdate(_id, { subscription }, { new: true })
 
   if (!result) {
